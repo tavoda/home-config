@@ -1,0 +1,22 @@
+
+
+# Some options for shell
+shopt -s globstar nocaseglob
+
+export HISTTIMEFORMAT="%m/%d/%y - %H:%M:%S "
+export PATH=~/bin:$PATH
+set -o vi
+
+# Tmux session
+if [[ -z $TMUX ]]; then
+	tmux new-session -As main
+fi
+
+# Aliases
+alias la='ls -la'
+alias l='ls -l'
+alias histsave="history -a"
+alias histload="history -n"
+
+# Additional options for other SW
+export MAVEN_OPTS="-Xmx500M -XX:MaxPermSize=128M"

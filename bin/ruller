@@ -1,0 +1,62 @@
+#!/bin/bash
+lines=`tput lines`
+cols=`tput cols`
+cols=${cols:-80}
+
+printLineA() {
+	((d=$cols/$1))
+	i=1
+	while [[ $i -le $d ]]; do
+		((p = $i % 10))
+		printf "%$1s" $p
+		((i++))
+	done
+	echo ""
+}
+
+printLineB() {
+	((d=$cols/$1))
+	i=$1
+	((q=i-1))
+	printf "%${q}s" ""
+	while [[ $i -le $cols ]]; do
+		((p = ($i / $1) % 10 ))
+		echo -ne "$p"
+		((i++))
+	done
+	echo ""
+}
+
+reverse=false
+func=printLineA
+size=false
+while [[ $# -gt 0 ]]; do
+	if [[ $1 = '-f' ]]; then
+		func=printLineB
+	elif [[ $1 = '-s' ]]; then
+		size=true
+	elif [[ $1 = '-r' ]]; then
+		reverse=true
+	else
+		echo "ERROR: Wrong paramater '$1'" >&2
+		exit -1
+	fi
+	shift
+done
+
+i=0
+if [[ "$size" = "true" ]]; then
+	echo "Current terminal $size is ${cols}x${lines}"
+fi
+len=${#cols}
+num=100000
+if [[ $reverse = true ]]; then
+	arr={1..$len}
+else
+	arr={$len..1}
+fi
+vals=`eval "echo $arr"`
+for len in $vals; do
+	$func ${num:0:$len}
+	((len--))
+done

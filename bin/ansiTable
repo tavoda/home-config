@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# ------------------------------------------------------------------------------
+# Print header
+# ------------------------------------------------------------------------------
+T=${1:-TwI}
+((startS=(${#T} + 2) / 2))
+((stopS=${#T} + 2 - $startS))
+
+echo -en "       "
+for i in "" {40..47}m; do
+	printf "%${startS}s%-3s%${stopS}s" '' $i ''
+done
+echo ""
+
+# ------------------------------------------------------------------------------
+# Print table
+# ------------------------------------------------------------------------------
+printLine() {
+	printf " %5s" $1
+	for BG in $1 {40..47}m {100..107}m; do
+		echo -en " \033[$1\033[$BG  $T \033[0m\033[$BG \033[0m";
+	done
+	echo;
+}
+
+for i in '' {30..37} {90..97}; do
+	printLine ${i}m
+	printLine ${i}\;1m
+done
+echo
+
+# generates an 8 bit color table (256 colors) for reference,
+# using the ANSI CSI+SGR \033[48;5;${val}m for background and
+# \033[38;5;${val}m for text (see "ANSI Code" on Wikipedia)
+#
+echo -en "\n   +  "
+for i in {0..35}; do
+    printf "%2b " $i
+done
+for i in {0..6}; do
+    let "i = i*36"
+    printf "\n\n %3b  " $i
+    for j in {0..35}; do
+        let "val = i+j"
+        echo -en "\033[48;5;${val}m  \033[m "
+    done
+done
+echo -e "\n"
+
+# Header
+# echo -en "\n       "
+# for k in {0..255..8}; do
+# 	printf "%02x " $k
+# done
+# echo ""
+
+# Rows
+# for i in {0..255..30}; do
+# 	for j in {0..255..30}; do
+# 		printf " %02x;%02x " $i $j
+# 		for k in {0..255..8}; do
+# 			echo -en "\033[48;2;${i};${j};${k}m  \033[m "
+# 		done
+# 		echo -e ""
+# 	done
+# done
+# echo -e "\n"
