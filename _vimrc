@@ -3,6 +3,8 @@ syntax enable
 " filetype plugin on
 set nocp ts=3 sw=3 incsearch hlsearch listchars=tab:>-,eol:$,precedes:> scrolloff=2 ic encoding=utf8 visualbell ai nowrap
 set cm=blowfish
+set wildmenu wildmode=list:longest,full
+map <F12> :NERDTree<CR>
 
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -28,3 +30,17 @@ else
   map <C-k> <C-w>k
   map <C-l> <C-w>l
 endif
+
+"
+" Pathogen
+" curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+execute pathogen#infect()
+execute pathogen#helptags()
+
+" Checkout following to ~/.vim/bundle
+"
+" For Tree browsing support
+" git clone https://github.com/scrooloose/nerdtree.git
+"
+" For GIT support
+" git clone https://github.com/tpope/vim-fugitive
