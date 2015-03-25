@@ -1,0 +1,4 @@
+#!/bin/bash
+for i in _*; do
+	diff -uq $i ~/.${i#_}
+done

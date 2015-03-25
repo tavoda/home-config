@@ -2,8 +2,9 @@ set nocp
 syntax enable
 " filetype plugin on
 set nocp ts=3 sw=3 incsearch hlsearch listchars=tab:>-,eol:$,precedes:> scrolloff=2 ic encoding=utf8 visualbell ai nowrap
-set cm=blowfish
+set colorcolumn=80,132
 set wildmenu wildmode=list:longest,full
+set cm=blowfish
 map <F12> :NERDTree<CR>
 
 if exists('$TMUX')
