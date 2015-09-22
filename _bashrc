@@ -9,6 +9,19 @@ export HISTTIMEFORMAT="%m/%d/%y - %H:%M:%S "
 export PATH=~/bin:$PATH
 set -o vi
 
+# ssh-agent
+ssh-add -l &>/dev/null
+if [ "$?" == 2 ]; then
+  test -r ~/.ssh-agent && eval "$(<~/.ssh-agent)" >/dev/null
+
+  ssh-add -l &>/dev/null
+  if [ "$?" == 2 ]; then
+    (umask 066; ssh-agent > ~/.ssh-agent)
+    eval "$(<~/.ssh-agent)" >/dev/null
+    ssh-add
+  fi
+fi
+
 # Tmux session
 if [[ -z $TMUX ]]; then
 	tmux new-session -As main
