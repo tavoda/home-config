@@ -2,8 +2,9 @@
 
 # Some options for shell
 shopt -s globstar nocaseglob
-#umask 0046
-umask 0066 # Restrictive for new files
+umask 0046
+#umask 0066 # Restrictive for new files
+#ulimit -n 2048
 
 export HISTTIMEFORMAT="%m/%d/%y - %H:%M:%S "
 export PATH=~/bin:$PATH
@@ -17,6 +18,9 @@ fi
 # Aliases
 alias la='ls -la'
 alias l='ls -l'
+function lt {
+	ls -lt $* | head -n $(( $LINES - 2 ))
+}
 alias histsave="history -a"
 alias histload="history -n"
 
