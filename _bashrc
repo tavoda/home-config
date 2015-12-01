@@ -7,7 +7,7 @@ umask 0046
 #ulimit -n 2048
 
 export HISTTIMEFORMAT="%m/%d/%y - %H:%M:%S "
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/opt/node-v5.0.0-linux-x86/bin:$PATH
 set -o vi
 
 # ssh-agent
@@ -32,11 +32,16 @@ fi
 alias la='ls -la'
 alias l='ls -l'
 function lt {
-	ls -lt $* | head -n $(( $LINES - 2 ))
+	ls -lt $* | head -n $(( ${LINES:-15} - 3 )); echo "..."
 }
 alias histsave="history -a"
 alias histload="history -n"
 
 # Additional options for other SW
-export MAVEN_OPTS="-Xmx500M -XX:MaxPermSize=128M"
-export NODE_PATH=/usr/local/lib/node_modules:/home/tavoda/opt/node/node_modules/
+export MAVEN_OPTS="-Xmx500M"
+export NODE_PATH="$(npm root -g)"
+#export NODE_PATH=/usr/local/lib/node_modules
+
+# Machine settings
+#pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo
+#pacmd set-default-sink 1
