@@ -1,10 +1,10 @@
 #!/bin/bash
 server=`vi --serverlist | head -1`
 if [ -z "$server" ]; then
-	exec /usr/bin/`basename $0` -o --servername VIM $*
+	exec /usr/bin/`basename $0` -o --servername VIM "$@"
 else
-	for i in $*; do
-		fPath=`realpath $i`
-		exec /usr/bin/vim --servername $server --remote-send ":sn $fPath "
+	for i in "$@"; do
+		fPath=`realpath "$i"`
+		/usr/bin/vim --servername $server --remote-send ":sn ${fPath/' '/'\ '}"
 	done
 fi
