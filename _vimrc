@@ -4,7 +4,8 @@ syntax enable
 set nocp ts=3 sw=3 incsearch hlsearch listchars=tab:>-,eol:$,precedes:> scrolloff=2 ic encoding=utf8 visualbell ai nowrap
 set colorcolumn=80,132
 set wildmenu wildmode=list:longest,full
-set cm=blowfish
+set cm=blowfish2
+set diffopt=vertical
 map <F12> :NERDTree<CR>
 
 if exists('$TMUX')

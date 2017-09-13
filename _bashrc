@@ -7,7 +7,8 @@ umask 0046
 #ulimit -n 2048
 
 export HISTTIMEFORMAT="%m/%d/%y - %H:%M:%S "
-export PATH=~/bin:~/opt/node-v5.0.0-linux-x86/bin:$PATH
+export PATH=~/bin:~/opt/node/bin:$PATH
+export CDPATH=.:~/Work/smartclientApps
 set -o vi
 
 # ssh-agent
@@ -28,17 +29,36 @@ if [[ -z $TMUX ]]; then
 	tmux new-session -As main
 fi
 
-# Aliases
-alias la='ls -la'
-alias l='ls -l'
+# Useful functions
 function lt {
 	ls -lt $* | head -n $(( ${LINES:-15} - 3 )); echo "..."
 }
+function cdt() {
+	if [[ `pwd` == ${HOME}* && -n "$1" ]]; then
+		homeLength=${#HOME}
+		newPath=`echo ${PWD:$homeLength} | sed -e "s#\(\(/[^/]*\)\{$1\}\).*#\1#"`
+		cd $HOME$newPath
+	fi
+}
+
+# Aliases
+alias la='ls -la'
+alias l='ls -l'
 alias histsave="history -a"
 alias histload="history -n"
+alias cd2="cdt 2"
+alias cd3="cdt 3"
+alias cd4="cdt 4"
+alias cd5="cdt 5"
+alias cd6="cdt 6"
+alias cd7="cdt 7"
+alias cd8="cdt 8"
+alias cd9="cdt 9"
 
 # Additional options for other SW
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_74
 export MAVEN_OPTS="-Xmx500M"
+export LESS="-niSR"
 export NODE_PATH="$(npm root -g)"
 #export NODE_PATH=/usr/local/lib/node_modules
 
