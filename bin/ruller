@@ -27,7 +27,7 @@ printLineB() {
 	echo ""
 }
 
-reverse=false
+reverse=true
 func=printLineA
 size=false
 while [[ $# -gt 0 ]]; do
@@ -36,7 +36,7 @@ while [[ $# -gt 0 ]]; do
 	elif [[ $1 = '-s' ]]; then
 		size=true
 	elif [[ $1 = '-r' ]]; then
-		reverse=true
+		reverse=false
 	else
 		echo "ERROR: Wrong paramater '$1'" >&2
 		exit -1

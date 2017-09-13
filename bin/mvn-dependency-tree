@@ -1,2 +1,2 @@
 #!/bin/bash
-mvn dependency:tree -Dverbose
+mvn dependency:tree -Dverbose $*

@@ -5,6 +5,6 @@ if [ -z "$server" ]; then
 else
 	for i in "$@"; do
 		fPath=`realpath "$i"`
-		/usr/bin/vim --servername $server --remote-send ":sn ${fPath/' '/'\ '}"
+		/usr/bin/vim --servername $server --remote-send ":sn ${fPath//' '/'\ '}"
 	done
 fi
