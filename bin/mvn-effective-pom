@@ -1,0 +1,2 @@
+#!/bin/bash
+mvn org.apache.maven.plugins:maven-help-plugin:2.2:effective-pom $*
