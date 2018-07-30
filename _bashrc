@@ -9,20 +9,21 @@ umask 0046
 export HISTTIMEFORMAT="%m/%d/%y - %H:%M:%S "
 export PATH=~/bin:~/opt/node/bin:$PATH
 export CDPATH=.:~/Work/smartclientApps
+
 set -o vi
 
 # ssh-agent
-ssh-add -l &>/dev/null
-if [ "$?" == 2 ]; then
-  test -r ~/.ssh-agent && eval "$(<~/.ssh-agent)" >/dev/null
-
-  ssh-add -l &>/dev/null
-  if [ "$?" == 2 ]; then
-    (umask 066; ssh-agent > ~/.ssh-agent)
-    eval "$(<~/.ssh-agent)" >/dev/null
-    ssh-add
-  fi
-fi
+#ssh-add -l &>/dev/null
+#if [ "$?" == 2 ]; then
+#  test -r ~/.ssh-agent && eval "$(<~/.ssh-agent)" >/dev/null
+#
+#  ssh-add -l &>/dev/null
+#  if [ "$?" == 2 ]; then
+#    (umask 066; ssh-agent > ~/.ssh-agent)
+#    eval "$(<~/.ssh-agent)" >/dev/null
+#    ssh-add
+#  fi
+#fi
 
 # Tmux session
 if [[ -z $TMUX ]]; then
@@ -33,13 +34,19 @@ fi
 function lt {
 	ls -lt $* | head -n $(( ${LINES:-15} - 3 )); echo "..."
 }
-function cdt() {
+function cdt {
 	if [[ `pwd` == ${HOME}* && -n "$1" ]]; then
 		homeLength=${#HOME}
 		newPath=`echo ${PWD:$homeLength} | sed -e "s#\(\(/[^/]*\)\{$1\}\).*#\1#"`
 		cd $HOME$newPath
 	fi
 }
+function vii { file=$(find -type f | ([[ -z $1 ]] && cat || fgrep $1) | fzy) && vim $file; }
+function cdi { dir=$(find $1 -type d | fzy) && cd $dir; }
+function cdu { updir=$(a=''; for i in `pwd | tr / ' '`; do a=$a/$i; echo $a; done | fzy) && cd $updir; }
+
+alias chf="find -type f | fzy"
+alias chd="find -type d | fzy"
 
 # Aliases
 alias la='ls -la'
@@ -56,11 +63,13 @@ alias cd8="cdt 8"
 alias cd9="cdt 9"
 
 # Additional options for other SW
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_74
-export MAVEN_OPTS="-Xmx500M"
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+export MAVEN_OPTS="-Xms300M -Xmx300M -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 export LESS="-niSR"
 export NODE_PATH="$(npm root -g)"
 #export NODE_PATH=/usr/local/lib/node_modules
+# For Eclipse/SWT
+export SWT_GTK3=0;
 
 # Machine settings
 #pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo

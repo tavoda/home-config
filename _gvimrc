@@ -1,3 +1,4 @@
 colorscheme peachpuff
 set lines=80 columns=150
 set guifont=Droid\ Sans\ Mono\ 10
+"set guifont=Noto\ Mono\ 10
