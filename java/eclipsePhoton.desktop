@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=Photon
+Type=Application
+Name=Eclipse Photon
+Icon=/home/tavoda/opt/eclipse-photon/eclipse/icon.xpm
+Exec=/home/tavoda/opt/eclipse-photon/eclipse/eclipse
+Comment=Eclipse Photon
+Categories=Development;IDE;
+Terminal=false
